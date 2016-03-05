@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'endsession' => 'sessions#logout'
   post 'authenticate' => 'sessions#authenticate'
-
+  post 'register' => 'sessions#register'
   resources :users do
     resources :profiles
   end

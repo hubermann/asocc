@@ -20,9 +20,9 @@ class User < ActiveRecord::Base
             :length               => { :within => 4..100 }
 
   #Antes de guardar encrypto password y genero tokens
-  before_save :encrypt_password, :generate_token
+  before_create :encrypt_password, :generate_token
 
-
+  ##?????
 
   #verific passwords
   def has_password?(password)

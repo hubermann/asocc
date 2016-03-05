@@ -14,8 +14,10 @@ class SessionsController < ApplicationController
         # coinciden los datos
         token = Digest::SHA2.hexdigest("#{@user.email}--#{SecureRandom.hex(32)}")
         #guardo nuevo token (deberia retornarlo..)
-        @user.persistence_token = token
-        @user.save
+        sum_logins = @user.login_count + 1
+        @user.update_attribute(:persistence_token, token)
+        @user.update_attribute(:login_count, sum_logins)
+
         render status:200, json: {
   				message: "Logueado correctamente",
           user: @user,
@@ -38,6 +40,24 @@ class SessionsController < ApplicationController
 
   end
 
+  def register
+    @user = User.new(user_params)
+    if @user.save
+			@profile = Profile.create(user_id: @user.id)
+    	#por el momento se pasa el user completo
+    	#a futuro aqui no se devuelve nada mas que un header con el token y header con success
+      render status:200, json: {
+				message: "User created",
+				user: @user,
+				profile: @profile
+			}.to_json
+    else
+      render status:422, json: {
+				errors: @user.errors
+				}.to_json
+    end
+  end
+
 
 
   def logout
@@ -45,7 +65,9 @@ class SessionsController < ApplicationController
       if api_key
         @user = User.where(persistence_token: api_key).first
         if @user
-          @user = User.update(@user.id, :persistence_token => '')
+          puts api_key
+          token = 'nada..remos'
+          @user.update_persistence_token(token)
           render status:200, json: {
               message: "Good bye!",
               user: @user
@@ -70,6 +92,10 @@ class SessionsController < ApplicationController
   private
     def session_params
       params.require(:session).permit(:email, :password)
+    end
+
+    def user_params
+      params.require(:user).permit(:email,:password)
     end
 
 

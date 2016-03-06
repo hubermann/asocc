@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
   #Antes de guardar encrypto password y genero tokens
   before_create :encrypt_password, :generate_token
 
-  ##?????
 
   #verific passwords
   def has_password?(password)

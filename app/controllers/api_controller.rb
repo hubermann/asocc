@@ -17,9 +17,13 @@ class ApiController < ApplicationController
         #token = Digest::SHA2.hexdigest("#{@user.email}--#{SecureRandom.hex(32)}")
         #guardo nuevo token
         #@user.update_attribute(:persistence_token, token)
+        #****** necesito devolver el token en la cabecera aun
+      else
+        head status: :unauthorized
+        return false
       end
 
-      #****** necesito devolver el token en la cabecera aun
+
 
     #no se encontro user
     else

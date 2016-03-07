@@ -66,8 +66,8 @@ class SessionsController < ApplicationController
         @user = User.where(persistence_token: api_key).first
         if @user
           puts api_key
-          token = 'nada..remos'
-          @user.update_persistence_token(token)
+          token = 'nada'
+          @user.update_attribute(:persistence_token, token)
           render status:200, json: {
               message: "Good bye!",
               user: @user

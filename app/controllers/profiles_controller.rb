@@ -1,5 +1,5 @@
 class ProfilesController < ApiController
-
+  api!
   def index
     @profile = Profile.find_by_user_id(params[:user_id])
     render status:200, json: {
@@ -7,7 +7,7 @@ class ProfilesController < ApiController
 		}.to_json
   end
 
-
+  api!
   def update
     @userprofile = Profile.find_by_user_id(params[:user_id])
     @userprofile.update_attributes(profile_params)
@@ -17,6 +17,7 @@ class ProfilesController < ApiController
 					}.to_json
   end
 
+  api!
   private
     def profile_params
       params.require(:profile).permit(:name, :lastname, :bio, :avatar_url )

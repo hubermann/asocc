@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 	protect_from_forgery with: :null_session
 
-
+  api!
   #login
   def authenticate
     #verifica si hay usuario con ese email
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
   				message: "Sin permisos",
   			}.to_json
     end
-
+head :no_content
   end
 
   def register
@@ -66,8 +66,8 @@ class SessionsController < ApplicationController
         @user = User.where(persistence_token: api_key).first
         if @user
           puts api_key
-          token = 'nada'
-          @user.update_attribute(:persistence_token, token)
+          token = 'nada..remos'
+          @user.update_persistence_token(token)
           render status:200, json: {
               message: "Good bye!",
               user: @user
@@ -95,7 +95,7 @@ class SessionsController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email,:password)
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
 

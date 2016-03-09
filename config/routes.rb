@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  apipie
   get 'endsession' => 'sessions#logout'
   post 'authenticate' => 'sessions#authenticate'
   post 'register' => 'sessions#register'

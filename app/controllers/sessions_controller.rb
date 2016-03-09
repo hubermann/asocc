@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
   def register
     @user = User.new(user_params)
     if @user.save
-			@profile = Profile.create(user_id: @user.id)
+			@profile = UserProfile.create(user_id: @user.id)
     	#por el momento se pasa el user completo
     	#a futuro aqui no se devuelve nada mas que un header con el token y header con success
       render status:200, json: {
@@ -95,7 +95,7 @@ class SessionsController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email,:password)
+      params.require(:user).permit(:email,:password, :password_confirmation)
     end
 
 

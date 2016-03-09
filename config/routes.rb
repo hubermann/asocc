@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post 'authenticate' => 'sessions#authenticate'
   post 'register' => 'sessions#register'
   resources :users do
-    resources :profiles
+    resources :user_profile
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -8,11 +8,11 @@ class ApiController < ApplicationController
 
   def check_token
     #Aqui no se renderiza nada. Solo se devuelve un 401 sino hay user
-    puts api_key = request.headers['X-Api-Key']
-    if api_key
-      @user = User.where(persistence_token: api_key).first
+    @api_key = request.headers['X-Api-Key']
+    if @api_key
+      @user = User.where(persistence_token: @api_key).first
       if @user
-        puts "SI hay user #{api_key}"
+        puts "SI hay user #{@api_key}"
         #user encontrado
         #token = Digest::SHA2.hexdigest("#{@user.email}--#{SecureRandom.hex(32)}")
         #guardo nuevo token

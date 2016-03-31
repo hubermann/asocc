@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   #vinculacion con user profile
   has_one :profile
   #soft_delete
-  #acts_as_paranoid
+  acts_as_paranoid
 
   #los valores que se reciben. En la BD el campo password se llama "encrypted_password"
   attr_accessor :password, :password_confirmation

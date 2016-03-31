@@ -11,16 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309010908) do
-
-  create_table "profiles", force: :cascade do |t|
-    t.string   "bio"
-    t.string   "telephone"
-    t.string   "avatar_url"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160309193056) do
 
   create_table "user_profiles", force: :cascade do |t|
     t.integer  "user_id"
@@ -45,8 +36,6 @@ ActiveRecord::Schema.define(version: 20160309010908) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "lastname"
     t.string   "email"
     t.string   "encrypted_password"
     t.string   "salt"
@@ -62,6 +51,9 @@ ActiveRecord::Schema.define(version: 20160309010908) do
     t.string   "last_login_ip"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.datetime "deleted_at"
   end
+
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at"
 
 end
